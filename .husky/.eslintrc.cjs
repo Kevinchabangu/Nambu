@@ -32,3 +32,4 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
   }
 };
+// This file is used by Husky to configure ESLint for pre-commit hooks.
