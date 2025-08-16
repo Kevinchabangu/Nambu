@@ -1,4 +1,5 @@
-import express, { type Request, type Response } from 'express'
+import express = require('express');
+import type { Request, Response } from 'express';
 
 const app = express()
 const PORT: number = Number(process.env.PORT) || 3000
