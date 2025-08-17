@@ -1,9 +1,9 @@
 {
   "name": "nambu",
   "version": "1.0.0",
-  "private": true,
+  "private": "true",
   "workspaces": [
-    "Client",
+    "client",
     "Server"
   ],
   "scripts": {
@@ -15,15 +15,29 @@
     "prepare": "husky"
   },
   "devDependencies": {
+    "@eslint/js": "^9.33.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
-    "eslint": "^9.0.0",
+    "eslint": "^9.33.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-node": "^11.1.0",
+    "globals": "^16.3.0",
     "husky": "^9.1.5",
-    "lint-staged": "^15.2.7",
-    "prettier": "^3.3.3",
-    "typescript": "^5.9.2"
+    "lint-staged": "^15.5.2",
+    "prettier": "^3.6.2",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.39.1"
+  },
+  "lint-staged": {
+    "Server/**/*.{ts,tsx,js,jsx}": [
+      "bash -lc \"cd Server && npm run lint -- --fix\"",
+      "bash -lc \"cd Server && npm run format\""
+    ],
+    "client/**/*.{ts,tsx,js,jsx}": [
+      "bash -lc \"cd client && npm run lint -- --fix\"",
+      "bash -lc \"cd client && npm run format\""
+    ],
+    "**/*.{json,md,css,html}": "prettier --write"
   }
 }

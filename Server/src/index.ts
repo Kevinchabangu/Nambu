@@ -1,14 +1,17 @@
-import express from 'express';
-import type { Request, Response } from 'express';
+import express from "express";
+import type { Request, Response } from "express";
 
-const app = express()
-const PORT: number = Number(process.env.PORT) || 3000
+const app = express();
+const PORT: number = Number(process.env.PORT) || 3000;
 
-app.get('/', (req: Request, res: Response): void => {
-  res.send('Server is running with TypeScript!')
-})
+app.get("/", (req: Request, res: Response): void => {
+  res.send("Server is running with TypeScript!");
+});
 
 app.listen(PORT, (): void => {
-  console.log(`Server is running at http://localhost:${PORT}`)
-})
+  console.log(`Server is running at http://localhost:${PORT}`);
+});
 // test lint-staged
+// lint-staged test
+// lint-staged test
+// lint-staged test
