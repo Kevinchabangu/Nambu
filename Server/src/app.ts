@@ -7,7 +7,7 @@ import { env } from './lib/env.js';
 import { notFound } from './middleware/notFound.js';
 import { errorHandler } from './middleware/error.js';
 import { healthRouter } from './routes/health.js';
-import { authRouter } from './routes/auth.js';
+import { authRouter } from './routes/auth.js';  // NodeNext: keep .js
 
 export function buildApp() {
   const app = express();
