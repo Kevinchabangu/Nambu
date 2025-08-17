@@ -7,7 +7,8 @@ import { env } from './lib/env.js';
 import { notFound } from './middleware/notFound.js';
 import { errorHandler } from './middleware/error.js';
 import { healthRouter } from './routes/health.js';
-import { authRouter } from './routes/auth.js';  // NodeNext: keep .js
+import { authRouter } from './routes/auth.js';
+import { requireAuth, optionalAuth } from './middleware/auth.js';
 
 export function buildApp() {
   const app = express();
@@ -18,7 +19,7 @@ export function buildApp() {
   app.use(
     cors({
       origin: env.CORS_ORIGIN === '*' ? true : env.CORS_ORIGIN.split(','),
-      credentials: true
+      credentials: true,
     })
   );
 
@@ -26,16 +27,21 @@ export function buildApp() {
   app.use(express.urlencoded({ extended: false, limit: '1mb' }));
 
   app.use(
-    pinoHttp.default({
+    pinoHttp({
       customSuccessMessage: (req: express.Request, res: express.Response) => `${req.method} ${req.url} -> ${res.statusCode}`,
-      customErrorMessage: (req: express.Request, res: express.Response, err: any) =>
-        `ERROR ${req.method} ${req.url} -> ${res.statusCode} ${err?.message ?? ''}`
+      customErrorMessage: (req: express.Request, res: express.Response, err: unknown) =>
+        `ERROR ${req.method} ${req.url} -> ${res.statusCode} ${(err as Error)?.message ?? ''}`,
     })
   );
 
   app.get('/', (_req, res) => res.send('Server is running with TypeScript!'));
   app.use('/health', healthRouter);
   app.use('/auth', authRouter);
+
+  // example protected route so requireAuth isn’t unused
+  app.get('/me', requireAuth, (req, res) => {
+    res.json({ user: req.user ?? null });
+  });
 
   app.use(notFound);
   app.use(errorHandler);
