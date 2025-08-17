@@ -1,14 +1,13 @@
 import express from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
-
 import pinoHttp from 'pino-http';
+
 import { env } from './lib/env.js';
-// Make sure the file exists at this path, or update the path if necessary
-// import { notFound as notFoundMiddleware } from './middleware/notFound.js';
-// import { errorHandler } from './middleware/error.js';
-// import { errorHandler } from './middleware/error.js';
+import { notFound } from './middleware/notFound.js';
+import { errorHandler } from './middleware/error.js';
 import { healthRouter } from './routes/health.js';
+import { authRouter } from './routes/auth.js';
 
 export function buildApp() {
   const app = express();
@@ -36,14 +35,9 @@ export function buildApp() {
 
   app.get('/', (_req, res) => res.send('Server is running with TypeScript!'));
   app.use('/health', healthRouter);
+  app.use('/auth', authRouter);
 
   app.use(notFound);
-  // app.use(errorHandler);
+  app.use(errorHandler);
   return app;
-}
-
-import { Request, Response, NextFunction } from 'express';
-
-export function notFound(req: Request, res: Response, next: NextFunction) {
-  res.status(404).json({ message: 'Not Found' });
 }

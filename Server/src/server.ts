@@ -1,6 +1,6 @@
 import { buildApp } from './app.js';
 import { env } from './lib/env.js';
-import logger from './middleware/logger.js';
+import { logger } from './middleware/logger.js';
 
 const app = buildApp();
 
