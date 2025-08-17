@@ -1,10 +1,9 @@
-node_modules
-*/node_modules
-dist
-build
-.env
-.env.*
-npm-debug.log*
-.DS_Store
+# Build output
+dist/
+coverage/
 
-/src/generated/prisma
+# Prisma (example if you use SQLite locally)
+prisma/dev.db
+
+# Optional: test artifacts
+.junit/
